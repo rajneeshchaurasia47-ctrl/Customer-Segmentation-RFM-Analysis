@@ -1,0 +1,7 @@
+Total Customers = DISTINCTCOUNT(VW_CUSTOMER_RFM_SEGMENTS[CUSTOMER_ID])
+Total Revenue = SUM(VW_CUSTOMER_RFM_SEGMENTS[MONETARY])
+Average Customer Value = DIVIDE([Total Revenue],[Total Customers])
+Average Recency Days = AVERAGE(VW_CUSTOMER_RFM_SEGMENTS[RECENCY])
+At Risk Customers = CALCULATE([Total Customers], VW_CUSTOMER_RFM_SEGMENTS[SEGMENT]="At Risk")
+At Risk Share % = DIVIDE([At Risk Customers],[Total Customers])
+Champions Revenue = CALCULATE([Total Revenue], VW_CUSTOMER_RFM_SEGMENTS[SEGMENT]="Champions")

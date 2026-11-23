@@ -1,0 +1,12 @@
+Metric,Value,Explanation
+Original rows,541909,Rows in uploaded workbook
+Exact duplicate rows,5268,Removed
+Rows missing CustomerID,135080,Excluded from customer-level RFM
+Cancellation invoice rows,9288,InvoiceNo begins with C; excluded
+Rows with quantity <= 0,10624,Excluded from eligible purchases
+Rows with unit price <= 0,2517,Excluded from eligible purchases
+Rows with invalid required fields after deduplication,135037,Counted before dropping invalid required values
+Eligible transaction rows,392692,After cleaning
+Unique customers,4338,Included in RFM
+Snapshot date,2011-12-10,One day after latest eligible purchase
+Eligible revenue (GBP),8887208.89,Sum of Quantity × UnitPrice
