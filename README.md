@@ -36,3 +36,34 @@ Import `data/processed/customer_rfm.csv`, create the measures in `powerbi/DAX_Me
 
 ## Dataset attribution
 Chen, D. (2015). *Online Retail* [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5BW33. Dataset period: 01-Dec-2010 to 09-Dec-2011.
+
+<img width="1277" height="720" alt="image" src="https://github.com/user-attachments/assets/f15f22d6-087a-4fbd-aaa4-3a9b11db0fd6" />
+## Data Model (Star Schema)
+
+```text
++-----------------------+          +-----------------------------------+
+|     DIM_CUSTOMERS     |          |         FACT_TRANSACTIONS         |
++-----------------------+          +-----------------------------------+
+| PK customer_id (NUM)  |<---+     |    invoice_no (VARCHAR2)          |
+|    country (VARCHAR2) |    |     |    stock_code (VARCHAR2)          |
++-----------------------+    |     |    description (VARCHAR2)         |
+                             |     |    quantity (NUMBER)              |
+                             |     |    invoice_date (TIMESTAMP)       |
+                             |     |    unit_price (NUMBER)            |
+                             +-----| FK customer_id (NUMBER)           |
+                                   |    total_amount (NUMBER)          |
+                                   +-----------------------------------+
+                                                     |
+                                                     v (Aggregated via Python / SQL NTILE)
+                                   +-----------------------------------+
+                                   |       CUSTOMER_RFM_SUMMARY        |
+                                   +-----------------------------------+
+                                   | PK customer_id (NUMBER)           |
+                                   |    last_purchase (TIMESTAMP)      |
+                                   |    recency (NUMBER)               |
+                                   |    frequency (NUMBER)             |
+                                   |    monetary (NUMBER)              |
+                                   |    r_score, f_score, m_score      |
+                                   |    rfm_score (NUMBER)             |
+                                   |    segment (VARCHAR2)             |
+                                   +-----------------------------------+
